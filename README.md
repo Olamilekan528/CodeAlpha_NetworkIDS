@@ -27,3 +27,6 @@ The script reads the whole log, so an old alert can still trigger a block. I als
 
 ## What I learned
 I learned how a Suricata rule is built from an action, a header and options. The threshold setting stops a single packet from setting off an alert, which is why the Nmap scan gave 50 alerts instead of 1000. I also saw how readable the alert log is once you know where the source IP sits in each line.
+
+## How to run it
+Install Suricata, put local.rules in /var/lib/suricata/rules/, and list it under rule-files in suricata.yaml, where you also set the interface to the one your machine uses. Load the rules with sudo suricatasc -c reload-rules, then start the script with sudo python3 block_attacker.py. To undo a block, run sudo iptables -D INPUT -s ATTACKER_IP -j DROP.
